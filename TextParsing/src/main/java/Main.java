@@ -15,10 +15,10 @@ public class Main {
         HashMap<String,Long> words = new HashMap<>();
         try {
             Files.readAllLines(filePath).stream()
-                    .map(line -> line.split("\\s+"))
+                    .map(line -> line.split(" "))
                     .flatMap(Arrays::stream)
-                    .filter(w -> w.matches("\\w+"))
-                    .filter(w -> !w.matches("^[+-]?(\\d*\\.)?\\d+$"))
+                    .map(w -> w.replaceAll("[^a-zA-Z]", "").toLowerCase())
+                    .filter(w -> w.length() > 0)
                     .forEach(w ->{
                         if (!words.containsKey(w)) {
                             words.put(w, 1l);
